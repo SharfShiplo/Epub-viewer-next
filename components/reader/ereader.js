@@ -1,28 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "./wrapper";
-import { ReactReaderStyle } from "react-reader";
-// import { ReactReader } from "react-reader";
-// import dynamic from "next/dynamic";
+import {ReactReader, ReactReaderStyle } from "react-reader";
 
-// const  {ReactReader}  = dynamic(()=> import("react-reader"), {
-//   ssr:true,
-// })
-import dynamic from "next/dynamic";
-
-const storage = global.localStorage || null;
+// const storage = global.localStorage || null;
 const DEMO_URL = "https://s3.amazonaws.com/moby-dick/moby-dick.epub";
 // const DEMO_URL = "Mustafa.epub";
 const DEMO_NAME = "Alice in wonderland";
 function Reader({ fullScreen, cancelFullScreen }) {
-  const EpubReader = dynamic(() => import("react-reader/lib/ReactReader/ReactReader"),
-    {ssr: false,
-    render: (props, reactRe) =>(
-        <reactRe.ReactReader
-          {...props}
-        />
-      ),
-  },
-  );
   const [background, setBackground] = useState("white");
   const [page, setPage] = useState("");
   const renditionRef = useRef(null);
@@ -38,8 +22,8 @@ function Reader({ fullScreen, cancelFullScreen }) {
       backgroundColor: background,
     },
   };
-
   // console.log(ReactReaderStyle)// this console will help to style
+
 
   const locationChanged = (epubcifi) => {
     setlocation(epubcifi);
@@ -67,8 +51,6 @@ function Reader({ fullScreen, cancelFullScreen }) {
       renditionRef.current.themes.fontSize(`${size}%`);
     }
   }, [size]);
-
-  // console.log(location, tocRef.current)
 
   return (
     <Wrapper screenMood={fullScreen}>
@@ -104,7 +86,7 @@ function Reader({ fullScreen, cancelFullScreen }) {
       >
         Black
       </button> */}
-      <select className="fixed top-[10px] right-[120px] px-4 py-3 rounded-full" onClick={changeSize}>
+      <select className="fixed top-[10px] right-[60px] px-4 py-3 rounded-full" onClick={changeSize}>
         <option value={100}>100%</option>
         <option value={120}>120%</option>
         <option value={140}>140%</option>
@@ -113,7 +95,7 @@ function Reader({ fullScreen, cancelFullScreen }) {
         <option value={200}>200%</option>
       </select>
 
-      <EpubReader
+      <ReactReader
         location={location}
         url={DEMO_URL}
         locationChanged={locationChanged}
@@ -125,7 +107,7 @@ function Reader({ fullScreen, cancelFullScreen }) {
         showToc={true}
         styles={ownStyles}
       />
-      {/* <p className="text-center">{page}</p> */}
+      <p className="text-center mt-2">{page}</p>
     </Wrapper>
   );
 }

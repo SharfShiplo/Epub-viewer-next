@@ -86,7 +86,6 @@ function Header({toggleView}) {
         </div>
       </div>
 
-      {/* </div> */}
     </nav>
   );
 }

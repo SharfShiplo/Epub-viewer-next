@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Fragment, useState } from "react";
 import Header from "../components/header/header";
 import Reader from "../components/reader/ereader";
